@@ -63,4 +63,33 @@ and output and diagnotics can be accessed ... Gulf of Alaska bottom-trawl
 catch-per-unit area survey data were used from years 1996, 1999, and the odd
 years from 2003-2019. 
 
-Data for the optimization were synthesized in the optimization_data.R script
+Data for the optimization were synthesized in the optimization_data.R script. 
+It's purpose is to take the VAST model density predictions and create an input 
+dataset in the form that is used in the SamplingStrata package. The output of 
+the script is saved as optimization_data.RData. 
+
+frame: dataframe of annual mean densities for each species, longitude, and depth 
+across grid cells. The dimension is 23339 rows and X columns
+
+frame_raw: dataframe of densities for each species across time, along with the
+longitude, and depth of the grid cells. The dimension is 23339x11 rows and X 
+columns.
+
+Since this is a workspace that is called up in many other scripts, various 
+constants are defined in this script, including: 
+
+true_mean: matrix of mean density for each species and year. This is the 
+"truth" that is used to in the performance metrics when simulating surveys. 
+Dimension X x X.
+
+sci_names: vector of scientific names for species, used in plots. Length of 15,
+saved as the variable ns.
+
+samples: vector of sample sizes corresponding to 1 (n = 280), 2 (n = 550), and 
+3 (n = 820) boats. Length of 3, saved as the variable nboats
+
+Niters: numeric, number of times a survey is simulated, set to 1000. 
+
+NTime: numeric, number of years with data, 11 years. 
+
+N: numeric, number of grid cells in the spatial domain, 23339 cells. 
