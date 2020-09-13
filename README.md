@@ -17,41 +17,50 @@ cods, flatfishes, and rockfishes:
 
 *Atheresthes stomias*: arrowtooth flounder
 
-Gadus chalcogrammus: Alaska or walleye pollock
+*Gadus chalcogrammus*: Alaska or walleye pollock
 
-Gadus macrocephalus: Pacific cod
+*Gadus macrocephalus*: Pacific cod
 
-Glyptocephalus zachirus: rex sole
+*Glyptocephalus zachirus*: rex sole
 
-Hippoglossoides elassodon: flathead sole
+*Hippoglossoides elassodon*: flathead sole
 
-Hippoglossus stenolepis: Pacific halibut
+*Hippoglossus stenolepis*: Pacific halibut
 
-Lepidopsetta bilineata: southern rock sole
+*Lepidopsetta bilineata*: southern rock sole
 
-Lepidopsetta polyxystra: northern rock sole
+*Lepidopsetta polyxystra*: northern rock sole
 
-Microstomus pacificus: Pacific Dover sole
+*Microstomus pacificus*: Pacific Dover sole
 
-Sebastes alutus: Pacific ocean perch 
+*Sebastes alutus*: Pacific ocean perch 
 
-Sebastes melanostictus/aleutianus: blackspotted and rougheye rockfishes. Due to 
-identification issues between two rockfishes these two species were combined 
+*Sebastes melanostictus/aleutianus*: blackspotted and rougheye rockfishes. Due 
+to identification issues between two rockfishes these two species were combined 
 into a species group we will refer as "Sebastes B_R" (blackspotted rockfish and
 rougheye rockfish, respectively) hereafter. 
 
-Limanda aspera: yellowfin sole     
+*Limanda aspera*: yellowfin sole     
 
-Sebastes polyspinis: northern rockfish
+*Sebastes polyspinis*: northern rockfish
 
-Sebastes variabilis: dusky rockfish
+*Sebastes variabilis*: dusky rockfish
 
-Sebastolobus alascanus: shortspine thornyhead
+*Sebastolobus alascanus*: shortspine thornyhead
 
 ## Input Data
 
-The spatiotemporal domain of the survey optimization is the Gulf of Alaska 
+The spatial domain of the survey optimization is the Gulf of Alaska 
 divided into a Xnm resolution grid. This is the same grid that used as an 
 extrapolation grid in the VAST package and can be accessed :
 
 Code to get this
+
+Density of each species was predicted across the spatiotemporal domain using a 
+multispecies vector autoregressive spatiotemporal model using the VAST package. 
+Code in the repository zoyafuso-NOAA/MS_OM_GoA/ was used to run the VAST models
+and output and diagnotics can be accessed ... Gulf of Alaska bottom-trawl 
+catch-per-unit area survey data were used from years 1996, 1999, and the odd
+years from 2003-2019. 
+
+Data for the optimization were synthesized in the optimization_data.R script
