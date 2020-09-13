@@ -15,7 +15,7 @@ status and ...
 The species set included in the manuscript are a complex of Gulf of Alaska
 cods, flatfishes, and rockfishes:
 
-Atheresthes stomias: arrowtooth flounder
+*Atheresthes stomias*: arrowtooth flounder
 
 Gadus chalcogrammus: Alaska or walleye pollock
 
