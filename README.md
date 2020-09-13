@@ -65,8 +65,17 @@ years from 2003-2019.
 
 Data for the optimization were synthesized in the optimization_data.R script. 
 It's purpose is to take the VAST model density predictions and create an input 
-dataset in the form that is used in the SamplingStrata package. The output of 
-the script is saved as optimization_data.RData. 
+dataset in the form that is used in the SamplingStrata package. The VAST output
+is accessed in ... as fit.RData. Many iterations of the VAST model were run 
+using different combinations of species and spatial settings and are identified
+using an alphanumeric code. Details of the spatial settings used here are found
+in Supplemental S1. spp_df.csv contained in the data/ directory contains the 
+names of the species used for each model. For this paper, we used model 6g. 
+Extrapolation_depths.RData contains a variable called Extrapolation_depths 
+which is a dataframe that contains the locations, Gulf of Alaska stratum ID,
+area, and depths of each grid in the spatial domain. The depth and E_km fields
+are used as strata variables. The output of the script is saved as 
+optimization_data.RData and contains the following variables. 
 
 frame: dataframe of annual mean densities for each species, longitude, and depth 
 across grid cells. The dimension is 23339 rows and X columns
@@ -93,3 +102,4 @@ Niters: numeric, number of times a survey is simulated, set to 1000.
 NTime: numeric, number of years with data, 11 years. 
 
 N: numeric, number of grid cells in the spatial domain, 23339 cells. 
+

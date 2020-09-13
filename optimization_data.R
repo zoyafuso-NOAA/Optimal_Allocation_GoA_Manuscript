@@ -21,17 +21,17 @@ library(SamplingStrata)
 rm(list = ls())
 
 which_machine <- c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[2]
-VAST_model <- "11" 
+VAST_model <- "6g" 
 
 github_dir <- paste0(c("/Users/zackoyafuso/Documents", 
-                      "C:/Users/Zack Oyafuso/Documents",
-                      "C:/Users/zack.oyafuso/Work")[which_machine],
-                    "/GitHub/Optimal_Allocation_GoA/")
+                       "C:/Users/Zack Oyafuso/Documents",
+                       "C:/Users/zack.oyafuso/Work")[which_machine],
+                     "/GitHub/Optimal_Allocation_GoA_Manuscript/")
 
 VAST_dir <- paste0(c("/Users/zackoyafuso/Google Drive/GOA_", 
-                    "C:/Users/Zack Oyafuso/Google Drive/GOA_", 
-                    "C:/Users/zack.oyafuso/Desktop/")[which_machine],
-                  "VAST_Runs/VAST_output", VAST_model, "/")
+                     "C:/Users/Zack Oyafuso/Google Drive/GOA_", 
+                     "C:/Users/zack.oyafuso/Desktop/")[which_machine],
+                   "VAST_Runs/VAST_output", VAST_model, "/")
 
 ##################################################
 ####   Set up Result Directories
@@ -40,8 +40,9 @@ result_dir <- paste0(github_dir, "model_", VAST_model, "/")
 
 if(!dir.exists(result_dir)){
   dir.create(result_dir)
-  dir.create(paste0(result_dir, "Survey_Comparison_Simulations/"))
-  dir.create(paste0(result_dir, "Spatiotemporal_Optimization/"))
+  dir.create(paste0(result_dir, "Spatial_Optimization_OneCV/"))
+  dir.create(paste0(result_dir, "Spatiotemporal_Optimization_OneCV/") )
+  dir.create(paste0(result_dir, "Spatiotemporal_Optimization_SppSpecificCV/") )
 }
 
 ##################################################
@@ -50,9 +51,9 @@ if(!dir.exists(result_dir)){
 load(paste0(VAST_dir, "/fit.RData"))
 load(paste0(github_dir, "data/Extrapolation_depths.RData"))
 spp_df <- read.csv(file = paste0(github_dir, "data/spp_df.csv"), 
-                  check.names = F, 
-                  header = T, 
-                  row.names = "modelno")
+                   check.names = F, 
+                   header = T, 
+                   row.names = "modelno")
 
 ##################################################
 ####   Constants
@@ -102,7 +103,7 @@ df <- cbind(
   apply(X = fit$Report$D_gcy[,,Years2Include], 
         MARGIN = 1:2, 
         FUN = mean )
-  )
+)
 names(df)[-(1:5)] <- gsub(x = sci_names, pattern = " ", replacement = "_")
 
 frame <- SamplingStrata::buildFrameDF(df = df,
@@ -142,8 +143,8 @@ frame_raw <- SamplingStrata::buildFrameDF(df = df_raw,
 ##################################################
 frame_raw$year <- rep(x = 1:NTime, each = N)
 stmt <- paste0("aggregate(cbind(",
-              paste0("Y", 1:(ns-1), sep = ",", collapse = ""), "Y",ns, 
-              ") ~ year, data = frame_raw, FUN = mean)")
+               paste0("Y", 1:(ns-1), sep = ",", collapse = ""), "Y",ns, 
+               ") ~ year, data = frame_raw, FUN = mean)")
 true_mean <- eval(parse(text = stmt))[,-1]
 colnames(true_mean) <- sci_names
 
