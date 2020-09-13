@@ -103,3 +103,31 @@ NTime: numeric, number of years with data, 11 years.
 
 N: numeric, number of grid cells in the spatial domain, 23339 cells. 
 
+Running the script create a directory called model_6g which will contain all 
+the optimization results using model 6g as the operating model. Within this 
+directory, three directories are created:
+
+Spatial_Optimization_OneCV: Optimization using spatial variance only, one CV 
+applied to all species
+
+Spatiotemporal_Optimization_OneCV: Optimization using spatiotemporal variance, 
+one CV applied to all species
+
+Spatiotemporal_Optimization_OneCV: Optimization using spatiotemporal variance, 
+one CV applied to all species
+
+This strategy is useful if you are comparing how the optimization results change
+with different operating models. 
+
+## Survey Optimization
+
+The SamplingStrata R package is used for the optimization. 
+
+The optimization is run over a range of number of stratas from 5 to 60. Each 
+run of the optimization is saved in its own directory with the code template of
+StrXRunY where X is the number of strata in the solution and Y is the run 
+number. 
+
+## Survey Simulation and Perforamnce Metrics
+
+## Figures
