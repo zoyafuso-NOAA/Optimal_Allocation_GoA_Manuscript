@@ -111,14 +111,14 @@ number. Within each run folder contains:
 The result_list.RData workspace contains a named list called result_list, which
 consists of the elements:
 
-| Variable Name                    | Description                                                                                                         | Class Type and Dimensions                     |
-|----------------------------------|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
-| result_list$solution$indices     | Solution indexed by strata, contained in the X1 column                                                              | dataframe, N rows and 2 columns               |
-| result_list$solution$aggr_strata | Stratum-level means and variances for each species                                                                  | dataframe, variable number of rows, 9 columns |
-| result_list$solution$frame_new   | Original data, along with the solution in the STRATO column.                                                        | dataframe, N rows and 21 columns              |
-| result_list$sum_stats            | Characteristics of the optimized strata, e.g., allocated sampling, population size, strata variable characteristics |                                               |
-| result_list$CV_constraints       | Expected CV across species                                                                                          | numeric vector, length ns                     |
-| result_list$n                    | Optimized total sample size                                                                                         | numeric, length 1                             |
+| Variable Name                    | Description                                                                                                         | Class Type and Dimensions                      |
+|----------------------------------|---------------------------------------------------------------------------------------------------------------------|------------------------------------------------|
+| result_list$solution$indices     | Solution indexed by strata, contained in the X1 column                                                              | dataframe, N rows and 2 columns                |
+| result_list$solution$aggr_strata | Stratum-level means and variances for each species                                                                  | dataframe, variable number of rows, 37 columns |
+| result_list$solution$frame_new   | Original data, along with the solution in the STRATO column.                                                        | dataframe, N rows and 21 columns               |
+| result_list$sum_stats            | Characteristics of the optimized strata, e.g., allocated sampling, population size, strata variable characteristics | dataframe, variable number of rows, 9 columns  |
+| result_list$CV_constraints       | Expected CV across species                                                                                          | numeric vector, length ns                      |
+| result_list$n                    | Optimized total sample size                                                                                         | numeric, length 1                              |
 
 ## Knitting Together Optimization Results
 
@@ -132,7 +132,7 @@ variables are saved in the optimization_knitted_results.RData workspace:
 | strata_list       | Collection of result_list$solution$aggr_strata from each run                | list of variable length                       |
 | strata_stats_list | Collection of stratum-level means and variances across species for each run | list of variable length                       |
 
-## Survey Simulation and Perforamnce Metrics
+## Survey Simulation and Performance Metrics
 The Simulate_Opt_Survey.R script takes the knitted results and the optimization
 data and simulates surveys, then calculates stratum means and vaiances. True 
 CV, RRMSE of CV, and bias are calculated on the simulated surveys. The output
@@ -146,6 +146,10 @@ consists of six variables saved to workspace STRS_Sim_Res_spatiotemporal.RData:
 | rrmse_cv_array | Relative root mean square error of the CV estiamte                                 | Array with dimensions (NTime, ns, nboats, NStrata)         |
 | rel_bias_est   | Relative percent bias of survey estimates of mean density relative to true density | Array with dimensions (NTime, ns, nboats, NStrata)         |
 | rel_bias_cv    | Relative percent bias of survey estimates of CV relative to true CV                | Array with dimensions (NTime, ns, nboats, NStrata)         |
+
+## Recap of Workflow
+
+![](graphics/Workflow.png)
 
 ## Figures
 
