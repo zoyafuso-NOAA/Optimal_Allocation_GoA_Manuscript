@@ -153,4 +153,11 @@ consists of six variables saved to workspace STRS_Sim_Res_spatiotemporal.RData:
 
 ## Figures
 
-Figure 1: 
+| Script Name                                | Description                                              | Figures Produced                        |
+|--------------------------------------------|----------------------------------------------------------|-----------------------------------------|
+| Fig2_Average_Spatiotemporal_Distribution.R | Average spatial distribution of density for each species | Figure 2                                |
+| Fig3_sol_by_boat.R                         | Solution maps for 5, 10, and 15 strata solutions         | Figure 3                                |
+| Fig4_N_CV_Tradeoff.R                       | Tradeoff between sample size and CV                      | Figure 4, Supplemental Figure 4         |
+| Fig5_ExpectedvsSim_CVs.R                   | Distribution of Simulated CVs vs Expected CVs            | Figure 5, Supplemental Figure 5         |
+| Fig6_True_RRMSE_CV_by_strata.R             | True CV and RRMSE across strata                          | Figures 6, 8, Supplemental Figures 6, 7 |
+| Fig7_Bias_Spatiotemporal.R                 | Bias in Estimate and CVs across strata                   | Figures 7, 9, Supplemental Figures 8, 9 |
