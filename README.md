@@ -111,22 +111,13 @@ number. Within each run folder contains:
 The result_list.RData workspace contains a named list called result_list, which
 consists of the elements:
 
-1) solution: list of three elements: 
+| Variable Name                                                                                              | Description                                                                                                                                                                          | Class Type and Dimensions                                                                                               |
+|------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| result_list$solution$indices<br><br>result_list$solution$aggr_strata<br><br>result_list$solution$frame_new | Solution indexed by strata, contained in the X1 column<br><br>Stratum-level means and variances for each species<br><br>Original data, along with the solution in the STRATO column. | dataframe, N rows and 2 c<br><br>dataframe, variable number of rows, 9 columns <br><br>dataframe, N rows and 21 columns |
+| result_list$sum_stats                                                                                      | Characteristics of the optimized strata, e.g., allocated sampling, population size, strata variable characteristics                                                                  |                                                                                                                         |
+| result_list$CV_constraints                                                                                 | Expected CV across species                                                                                                                                                           | numeric vector, length ns                                                                                               |
+| result_list$n                                                                                              | Optimized total sample size                                                                                                                                                          | numeric, length 1                                                                                                       |
 
-1a) indices: dataframe of the solution contained in X1.
-
-1b) aggr_strata: dataframe with strata-level means and variances for each 
-species.
-
-1c) frame_new: dataframe that contains the original data, along with the 
-solution in the STRATO column.
-
-2) sum_stats: dataframe containing characteristics of the optimized strata, 
-e.g., allocated sampling, population size, strata variable characteristics.
-
-3) CV_contraints: vector of CVs from the optimization, of length ns.
-
-4) n: numeric, optimized sample size. 
 
 ## Knitting Together Optimization Results
 
