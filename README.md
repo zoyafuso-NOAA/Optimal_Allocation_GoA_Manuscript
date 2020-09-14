@@ -15,38 +15,27 @@ status and ...
 The species set included in the manuscript are a complex of Gulf of Alaska
 cods, flatfishes, and rockfishes:
 
-*Atheresthes stomias*: arrowtooth flounder
+| Scientific Name                     | Common Name                           |
+|-------------------------------------|---------------------------------------|
+| *Atheresthes stomias*               | arrowtooth flounder                   |
+| *Gadus chalcogrammus*               | Alaska or walleye pollock             |
+| *Gadus macrocephalus*               | Pacific cod                           |
+| *Glyptocephalus zachirus*           | rex sole                              |
+| *Hippoglossoides elassodon*         | flathead sole                         |
+| *Hippoglossus stenolepis*           | Pacific halibut                       |
+| *Lepidopsetta bilineata*            | southern rock sole                    |
+| *Lepidopsetta polyxystra*           | northern rock sole                    |
+| *Microstomus pacificus*             | Pacific Dover sole                    |
+| *Sebastes alutus*                   | Pacific ocean perch                   |
+| *Sebastes melanostictus/aleutianus* | blackspotted and rougheye rockfishes* |
+| *Limanda aspera*                    | yellowfin sole                        |
+| *Sebastes polyspinis*               | northern rockfish                     |
+| *Sebastes variabilis*               | dusky rockfish                        |
+| *Sebastolobus alascanus*            | shortspine thornyhead                 |
 
-*Gadus chalcogrammus*: Alaska or walleye pollock
-
-*Gadus macrocephalus*: Pacific cod
-
-*Glyptocephalus zachirus*: rex sole
-
-*Hippoglossoides elassodon*: flathead sole
-
-*Hippoglossus stenolepis*: Pacific halibut
-
-*Lepidopsetta bilineata*: southern rock sole
-
-*Lepidopsetta polyxystra*: northern rock sole
-
-*Microstomus pacificus*: Pacific Dover sole
-
-*Sebastes alutus*: Pacific ocean perch 
-
-*Sebastes melanostictus/aleutianus*: blackspotted and rougheye rockfishes. Due 
-to identification issues between two rockfishes these two species were combined 
-into a species group we will refer as "Sebastes B_R" (blackspotted rockfish and
-rougheye rockfish, respectively) hereafter. 
-
-*Limanda aspera*: yellowfin sole     
-
-*Sebastes polyspinis*: northern rockfish
-
-*Sebastes variabilis*: dusky rockfish
-
-*Sebastolobus alascanus*: shortspine thornyhead
+*Due to identification issues between two rockfishes these two species were 
+combined into a species group we will refer as "Sebastes B_R" (blackspotted 
+rockfish and rougheye rockfish, respectively) hereafter. 
 
 ## Input Data
 
@@ -193,3 +182,5 @@ relative to true density. Array with dimensions (NTime, ns, nboats, NStrata).
 true CV. Array with dimensions (NTime, ns, nboats, NStrata).
 
 ## Figures
+
+Figure 1: 
