@@ -6,32 +6,37 @@
 rm(list = ls())
 
 ##################################################
-####  Set up directories  
+####  Set up directories
 ##################################################
-which_machine <- c('Zack_MAC' = 1, 'Zack_PC' = 2, 'Zack_GI_PC' = 3)[2]
+which_machine <- c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[2]
 VAST_model <- "6g" 
 
-github_dir <- paste0(c('/Users/zackoyafuso/Documents/', 
-                       'C:/Users/Zack Oyafuso/Documents/',
-                       'C:/Users/zack.oyafuso/Work/')[which_machine], 
-                     "GitHub/Optimal_Allocation_GoA/model_", VAST_model, "/")
+github_dir <- paste0(c("/Users/zackoyafuso/Documents/", 
+                       "C:/Users/Zack Oyafuso/Documents/",
+                       "C:/Users/zack.oyafuso/Work/")[which_machine], 
+                     "GitHub/Optimal_Allocation_GoA_Manuscript/model_", 
+                     VAST_model, "/")
+
+##################################################
+####   Load Data
+##################################################
+load(paste0(github_dir, "optimization_data.RData"))
 
 ##################################################
 ####   Define which optimization settings is being worked on
 ####
-####   which_variance:
-####   Spatial: spatial variance for stratum variance
-####   Spatiotemporal: spatiotemporal variance for stratum variance
-####
-####   which_constraint: 
-####   one_CV: One CV constraint applied to all species
-####   "": species specific CV constraints, assumed to be the default
+####   Set up some constants of the optimization
+####   OneCV: one CV applied to all species
+####   SppSpecificCV: species-specific CV
+####   
+####   Set up type of variance used
+####   Spatial_Optimization: optimizing using spatial variance only 
+####   Spatiotemporal_Optimization: optimizing using spatiotemporal variance
 ##################################################
-which_variance = c('Spatiotemporal_Optimization/', 
-                   'Spatiotemporal_Optimization_Scheme2/', 
-                   'Spatial_Optimization/')[1]
+which_CV_method = c("OneCV", "SppSpecificCV")[1]
+which_variance = c("Spatial_Optimization", "Spatiotemporal_Optimization")[1]
 
-result_dir <- paste0(github_dir, which_variance)
+result_dir <- paste0(github_dir, which_variance, "_", which_CV_method, "/")
 
 ##################################################
 ####    Load predicted density and optimization results

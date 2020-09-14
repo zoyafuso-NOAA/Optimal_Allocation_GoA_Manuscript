@@ -172,6 +172,24 @@ for each run.
 ## Survey Simulation and Perforamnce Metrics
 The Simulate_Opt_Survey.R script takes the knitted results and the optimization
 data and simulates surveys, then calculates stratum means and vaiances. True 
-CV, RRMSE of CV, and bias are calculated on the simulated surveys 
+CV, RRMSE of CV, and bias are calculated on the simulated surveys. The output
+consists of X variables saved to workspace 
+
+1) sim_mean: Simulated survey estimates of mean density. Array with dimensions 
+(NTime, ns, nboats, NStrata, Niters).
+
+2) sim_cv: Simulated survey estimate of CV. Array with dimensions (NTime, ns, 
+nboats, NStrata, Niters).
+
+3) true_cv_array: True CV. Array with dimensions (NTime, ns, nboats, NStrata).
+
+4) rrmse_cv_array: Relative root mean square error of the CV estiamte. Array 
+with dimensions (NTime, ns, nboats, NStrata).
+
+5) rel_bias_est: Relative percent bias of survey estimates of mean density
+relative to true density. Array with dimensions (NTime, ns, nboats, NStrata).
+
+6) rel_bias_cv: Relative percent bias of survey estimates of CV relative to 
+true CV. Array with dimensions (NTime, ns, nboats, NStrata).
 
 ## Figures
