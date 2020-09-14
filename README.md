@@ -83,8 +83,8 @@ optimization_data.RData and contains the following variables and constants.
 
 
 Running the script create a directory called model_6g which will contain all 
-the optimization results using model 6g as the operating model. Within this 
-directory, three directories are created:
+the optimization results using model 6g as the operating model. Within the  
+model6g/ directory, three directories are created:
 
 | Directory Name                            | Description                                                               |
 |-------------------------------------------|---------------------------------------------------------------------------|
@@ -146,24 +146,16 @@ for each run.
 The Simulate_Opt_Survey.R script takes the knitted results and the optimization
 data and simulates surveys, then calculates stratum means and vaiances. True 
 CV, RRMSE of CV, and bias are calculated on the simulated surveys. The output
-consists of X variables saved to workspace 
+consists of six variables saved to workspace STRS_Sim_Res_spatiotemporal.RData:
 
-1) sim_mean: Simulated survey estimates of mean density. Array with dimensions 
-(NTime, ns, nboats, NStrata, Niters).
-
-2) sim_cv: Simulated survey estimate of CV. Array with dimensions (NTime, ns, 
-nboats, NStrata, Niters).
-
-3) true_cv_array: True CV. Array with dimensions (NTime, ns, nboats, NStrata).
-
-4) rrmse_cv_array: Relative root mean square error of the CV estiamte. Array 
-with dimensions (NTime, ns, nboats, NStrata).
-
-5) rel_bias_est: Relative percent bias of survey estimates of mean density
-relative to true density. Array with dimensions (NTime, ns, nboats, NStrata).
-
-6) rel_bias_cv: Relative percent bias of survey estimates of CV relative to 
-true CV. Array with dimensions (NTime, ns, nboats, NStrata).
+| Variable Name  | Description                                                                        | Class Type and Dimensions                                  |
+|----------------|------------------------------------------------------------------------------------|------------------------------------------------------------|
+| sim_mean       | Simulated survey estimates of mean density                                         | Array with dimensions (NTime, ns, nboats, NStrata, Niters) |
+| sim_cv         | Simulated survey estimate of CV                                                    | Array with dimensions (NTime, ns, nboats, NStrata, Niters) |
+| true_cv_array  | True CV                                                                            | Array with dimensions (NTime, ns, nboats, NStrata)         |
+| rrmse_cv_array | Relative root mean square error of the CV estiamte                                 | Array with dimensions (NTime, ns, nboats, NStrata)         |
+| rel_bias_est   | Relative percent bias of survey estimates of mean density relative to true density | Array with dimensions (NTime, ns, nboats, NStrata)         |
+| rel_bias_cv    | Relative percent bias of survey estimates of CV relative to true CV                | Array with dimensions (NTime, ns, nboats, NStrata)         |
 
 ## Figures
 
