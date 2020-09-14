@@ -111,20 +111,21 @@ number. Within each run folder contains:
 The result_list.RData workspace contains a named list called result_list, which
 consists of the elements:
 
-| Variable Name                                                                                              | Description                                                                                                                                                                          | Class Type and Dimensions                                                                                               |
-|------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| result_list$solution$indices<br><br>result_list$solution$aggr_strata<br><br>result_list$solution$frame_new | Solution indexed by strata, contained in the X1 column<br><br>Stratum-level means and variances for each species<br><br>Original data, along with the solution in the STRATO column. | dataframe, N rows and 2 c<br><br>dataframe, variable number of rows, 9 columns <br><br>dataframe, N rows and 21 columns |
-| result_list$sum_stats                                                                                      | Characteristics of the optimized strata, e.g., allocated sampling, population size, strata variable characteristics                                                                  |                                                                                                                         |
-| result_list$CV_constraints                                                                                 | Expected CV across species                                                                                                                                                           | numeric vector, length ns                                                                                               |
-| result_list$n                                                                                              | Optimized total sample size                                                                                                                                                          | numeric, length 1                                                                                                       |
-
+| Variable Name                    | Description                                                                                                         | Class Type and Dimensions                     |
+|----------------------------------|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
+| result_list$solution$indices     | Solution indexed by strata, contained in the X1 column                                                              | dataframe, N rows and 2 columns               |
+| result_list$solution$aggr_strata | Stratum-level means and variances for each species                                                                  | dataframe, variable number of rows, 9 columns |
+| result_list$solution$frame_new   | Original data, along with the solution in the STRATO column.                                                        | dataframe, N rows and 21 columns              |
+| result_list$sum_stats            | Characteristics of the optimized strata, e.g., allocated sampling, population size, strata variable characteristics |                                               |
+| result_list$CV_constraints       | Expected CV across species                                                                                          | numeric vector, length ns                     |
+| result_list$n                    | Optimized total sample size                                                                                         | numeric, length 1                             |
 
 ## Knitting Together Optimization Results
 
 The results from each run are synthesized in the knitting_runs.R script. Four
 variables are saved in the optimization_knitted_results.RData workspace:
 
-| Variable Name     | Description                                                                | Class Type and Dimensions                     |
+| Variable Name     | Description                                                                 | Class Type and Dimensions                     |
 |-------------------|-----------------------------------------------------------------------------|-----------------------------------------------|
 | settings          | Optimized strata and expected CV for each species and number of strata      | dataframe, variable number of rows, 19 c      |
 | res_df            | Solutions for each run                                                      | dataframe, N rows, variable number of columns |
