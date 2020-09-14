@@ -64,38 +64,28 @@ Extrapolation_depths.RData contains a variable called Extrapolation_depths
 which is a dataframe that contains the locations, Gulf of Alaska stratum ID,
 area, and depths of each grid in the spatial domain. The depth and E_km fields
 are used as strata variables. The output of the script is saved as 
-optimization_data.RData and contains the following variables. 
+optimization_data.RData and contains the following variables and constants. 
 
-frame: dataframe of annual mean densities for each species, longitude, and depth 
-across grid cells. The dimension is 23339 rows and X columns
-
-frame_raw: dataframe of densities for each species across time, along with the
-longitude, and depth of the grid cells. The dimension is 23339x11 rows and X 
-columns.
-
-Since this is a workspace that is called up in many other scripts, various 
-constants are defined in this script, including: 
-
-true_mean: matrix of mean density for each species and year. This is the 
-"truth" that is used to in the performance metrics when simulating surveys. 
-Dimension X x X.
-
-sci_names: vector of scientific names for species, used in plots. Length of 15,
-saved as the variable ns.
-
-samples: vector of sample sizes corresponding to 1 (n = 280), 2 (n = 550), and 
-3 (n = 820) boats. Length of 3, saved as the variable nboats
-
-Niters: numeric, number of times a survey is simulated, set to 1000. 
-
-NTime: numeric, number of years with data, 11 years. 
-
-N: numeric, number of grid cells in the spatial domain, 23339 cells. 
-
-stratas: vector of numbers of strata from 5-60, length of 6.
-
-NStrata: numeric, number of strata scenarios.
-
+| Variable Name | Description                                                                                                                        | Class Type and Dimensions      |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| ns            | Number of species in optimization                                                                                                  | numeric vector, length 1       |
+| sci_names     | Scientific species names, used in plots                                                                                            | character vector, length ns    |
+| nboats        | Total number of sample sizes of interest, (nboats = 3)                                                                             | numeric vector, length 1       |
+| samples       | Range of sample sizes of interest, corresponding to 1 (n = 280),
+                  2 (n = 550), and 3 (n = 820) boats                                                                                                 | numeric vector, length nboats  |
+| NStrata       | Total number of strata scenarios, (NStrata = 6)                                                                                    | numeric vector, length 1       |
+| stratas       | Range of number of strata, (stratas = c(5, 10, 15, 20, 30, 60))                                                                    | numeric vector, length NStrata |
+| N             | Total number of grid cells in the spatial domain, (N = 23339 cells)                                                                | numeric vector, length 1       |
+| NTime         | Total number of years with data, (NTime = 11 years between 1996-2019)                                                              | numeric vector, length 1       |
+| Niters        | Total number of times a survey is simulated, (Niters = 1000)                                                                       | numeric vector, length 1       |
+| frame         | Annual mean densities for each species, longitude, and depth across grid cells                                                     | dataframe, 23339 r x 19 c      |
+| frame_raw     | Densities for each species across observed years, along with longitude and depth across cells                                      | dataframe, 23339X11 R x 20 c   |
+| true_mean     | True mean densities for each species and year. This is the "truth" that is used in the performance metrics when simulating surveys | dataframe, 11 r x 15 c         |
+|               |                                                                                                                                    |                                |
+|               |                                                                                                                                    |                                |
+|               |                                                                                                                                    |                                |
+|               |                                                                                                                                    |                                |
+|               |                                                                                                                                    |                                |
 
 Running the script create a directory called model_6g which will contain all 
 the optimization results using model 6g as the operating model. Within this 
