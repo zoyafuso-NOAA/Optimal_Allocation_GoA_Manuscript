@@ -136,10 +136,14 @@ domain
 
 result_list.RData: contains the result of the optimization stored in a named
 list called result_list, which contains four sublists:
+
 1) solution: list of three elements: 
+
 1a) indices: dataframe of the solution contained in X1.
+
 1b) aggr_strata: dataframe with strata-level means and variances for each 
 species.
+
 1c) frame_new: dataframe that contains the original data, along with the 
 solution in the STRATO column.
 
@@ -166,6 +170,8 @@ optimization for each species and number of stratas.
 for each run.
 
 ## Survey Simulation and Perforamnce Metrics
-
+The Simulate_Opt_Survey.R script takes the knitted results and the optimization
+data and simulates surveys, then calculates stratum means and vaiances. True 
+CV, RRMSE of CV, and bias are calculated on the simulated surveys 
 
 ## Figures

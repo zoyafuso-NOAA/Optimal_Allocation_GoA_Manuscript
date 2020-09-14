@@ -35,16 +35,9 @@ load(paste0(github_dir, "optimization_data.RData"))
 ####   Spatiotemporal_Optimization: optimizing using spatiotemporal variance
 ##################################################
 which_CV_method = c("OneCV", "SppSpecificCV")[1]
-
 which_variance = c("Spatial_Optimization", "Spatiotemporal_Optimization")[1]
 
-github_dir <- paste0(c("/Users/zackoyafuso/Documents", 
-                       "C:/Users/Zack Oyafuso/Documents",
-                       "C:/Users/zack.oyafuso/Work")[which_machine],
-                     "/GitHub/Optimal_Allocation_GoA_Manuscript/model_", 
-                     VAST_model, "/", which_variance, '_', which_CV_method, '/')
-
-result_dir <- paste0(github_dir, which_variance)
+result_dir <- paste0(github_dir, which_variance, "_", which_CV_method, "/")
 
 ##################################################
 ####   Empty Result Objects
