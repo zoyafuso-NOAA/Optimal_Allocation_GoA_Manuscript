@@ -80,27 +80,17 @@ optimization_data.RData and contains the following variables and constants.
 | frame         | Annual mean densities for each species, longitude, and depth across grid cells                                                     | dataframe, 23339 r x 19 c      |
 | frame_raw     | Densities for each species across observed years, along with longitude and depth across cells                                      | dataframe, 23339X11 R x 20 c   |
 | true_mean     | True mean densities for each species and year. This is the "truth" that is used in the performance metrics when simulating surveys | dataframe, 11 r x 15 c         |
-|               |                                                                                                                                    |                                |
-|               |                                                                                                                                    |                                |
-|               |                                                                                                                                    |                                |
-|               |                                                                                                                                    |                                |
-|               |                                                                                                                                    |                                |
+
 
 Running the script create a directory called model_6g which will contain all 
 the optimization results using model 6g as the operating model. Within this 
 directory, three directories are created:
 
-Spatial_Optimization_OneCV: Optimization using spatial variance only, one CV 
-applied to all species
-
-Spatiotemporal_Optimization_OneCV: Optimization using spatiotemporal variance, 
-one CV applied to all species
-
-Spatiotemporal_Optimization_OneCV: Optimization using spatiotemporal variance, 
-one CV applied to all species
-
-This strategy is useful if you are comparing how the optimization results change
-with different operating models. 
+| Directory Name                            | Description                                                               |
+|-------------------------------------------|---------------------------------------------------------------------------|
+| Spatial_Optimization_OneCV                | Optimization using spatial variance only, one CV applied to all species   |
+| Spatiotemporal_Optimization_OneCV         | Optimization using spatiotemporal variance, one CV applied to all species |
+| Spatiotemporal_Optimization_SppSpecificCV | Optimization using spatiotemporal variance, CV specified for each species |
 
 ## Survey Optimization
 
