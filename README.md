@@ -71,8 +71,7 @@ optimization_data.RData and contains the following variables and constants.
 | ns            | Number of species in optimization                                                                                                  | numeric vector, length 1       |
 | sci_names     | Scientific species names, used in plots                                                                                            | character vector, length ns    |
 | nboats        | Total number of sample sizes of interest, (nboats = 3)                                                                             | numeric vector, length 1       |
-| samples       | Range of sample sizes of interest, corresponding to 1 (n = 280),
-                  2 (n = 550), and 3 (n = 820) boats                                                                                                 | numeric vector, length nboats  |
+| samples       | Range of sample sizes of interest, corresponding to 1 (n = 280), 2 (n = 550), and 3 (n = 820) boats                                | numeric vector, length nboats  |
 | NStrata       | Total number of strata scenarios, (NStrata = 6)                                                                                    | numeric vector, length 1       |
 | stratas       | Range of number of strata, (stratas = c(5, 10, 15, 20, 30, 60))                                                                    | numeric vector, length NStrata |
 | N             | Total number of grid cells in the spatial domain, (N = 23339 cells)                                                                | numeric vector, length 1       |
