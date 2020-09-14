@@ -101,14 +101,15 @@ run of the optimization is saved in its own directory with the code template of
 StrXRunY where X is the number of strata in the solution and Y is the run 
 number. Within each run folder contains:
 
-output/plotdom1.png: genetic algorithm results
-outstrata.txt: text file of stratum-level means and variances for each species
+| File Name            | Description                                                         |
+|----------------------|---------------------------------------------------------------------|
+| output/plotdom1.png  | Genetic algorithm results                                           |
+| output/outstrata.txt | Stratum-level means and variances for each species                  |
+| solution.png         | Low-quality snapshot of the solution mapped onto the spatial domain |
+| result_list.RData    | Result workspace of the optimization                                |
 
-solution.png: low-quality snapshot of the solution mapped onto the spatial 
-domain
-
-result_list.RData: contains the result of the optimization stored in a named
-list called result_list, which contains four sublists:
+The result_list.RData workspace contains a named list called result_list, which
+consists of the elements:
 
 1) solution: list of three elements: 
 
@@ -132,15 +133,12 @@ e.g., allocated sampling, population size, strata variable characteristics.
 The results from each run are synthesized in the knitting_runs.R script. Four
 variables are saved in the optimization_knitted_results.RData workspace:
 
-1) settings: dataframe, contains optimized strata and expected CVs from 
-optimization for each species and number of stratas.
-
-2) res_df: data.frame of solutions for each run.
-
-3) strata_list: list of result_list$solution$aggr_strata from each run.
-
-4) strata_stats_list: list of strata-level means and variances across species
-for each run.
+| Variable Name     | Description                                                                | Class Type and Dimensions                     |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------|
+| settings          | Optimized strata and expected CV for each species and number of strata      | dataframe, variable number of rows, 19 c      |
+| res_df            | Solutions for each run                                                      | dataframe, N rows, variable number of columns |
+| strata_list       | Collection of result_list$solution$aggr_strata from each run                | list of variable length                       |
+| strata_stats_list | Collection of stratum-level means and variances across species for each run | list of variable length                       |
 
 ## Survey Simulation and Perforamnce Metrics
 The Simulate_Opt_Survey.R script takes the knitted results and the optimization
