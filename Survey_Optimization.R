@@ -20,6 +20,7 @@ library(raster)
 ####   OneCV: one CV applied to all species
 ####   SppSpecificCV: species-specific CV
 ####
+####   Set up type of variance used
 ####   Spatial_Optimization: optimizing using spatial variance only 
 ####   Spatiotemporal_Optimization: optimizing using spatiotemporal variance
 ##################################################

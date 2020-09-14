@@ -126,8 +126,46 @@ The SamplingStrata R package is used for the optimization.
 The optimization is run over a range of number of stratas from 5 to 60. Each 
 run of the optimization is saved in its own directory with the code template of
 StrXRunY where X is the number of strata in the solution and Y is the run 
-number. 
+number. Within each run folder contains:
+
+output/plotdom1.png: genetic algorithm results
+outstrata.txt: text file of stratum-level means and variances for each species
+
+solution.png: low-quality snapshot of the solution mapped onto the spatial 
+domain
+
+result_list.RData: contains the result of the optimization stored in a named
+list called result_list, which contains four sublists:
+1) solution: list of three elements: 
+1a) indices: dataframe of the solution contained in X1.
+1b) aggr_strata: dataframe with strata-level means and variances for each 
+species.
+1c) frame_new: dataframe that contains the original data, along with the 
+solution in the STRATO column.
+
+2) sum_stats: dataframe containing characteristics of the optimized strata, 
+e.g., allocated sampling, population size, strata variable characteristics.
+
+3) CV_contraints: vector of CVs from the optimization, of length ns.
+
+4) n: numeric, optimized sample size. 
+
+## Knitting Together Optimization Results
+
+The results from each run are synthesized in the knitting_runs.R script. Four
+variables are saved in the optimization_knitted_results.RData workspace:
+
+1) settings: dataframe, contains optimized strata and expected CVs from 
+optimization for each species and number of stratas.
+
+2) res_df: data.frame of solutions for each run.
+
+3) strata_list: list of result_list$solution$aggr_strata from each run.
+
+4) strata_stats_list: list of strata-level means and variances across species
+for each run.
 
 ## Survey Simulation and Perforamnce Metrics
+
 
 ## Figures
