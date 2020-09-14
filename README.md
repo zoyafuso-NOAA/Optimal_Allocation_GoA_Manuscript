@@ -103,6 +103,11 @@ NTime: numeric, number of years with data, 11 years.
 
 N: numeric, number of grid cells in the spatial domain, 23339 cells. 
 
+stratas: vector of numbers of strata from 5-60, length of 6.
+
+NStrata: numeric, number of strata scenarios.
+
+
 Running the script create a directory called model_6g which will contain all 
 the optimization results using model 6g as the operating model. Within this 
 directory, three directories are created:

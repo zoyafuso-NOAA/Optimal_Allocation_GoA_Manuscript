@@ -25,8 +25,8 @@ library(raster)
 ####   Spatiotemporal_Optimization: optimizing using spatiotemporal variance
 ##################################################
 
-which_machine <- c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[2]
-VAST_model <- "11" 
+which_machine <- c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[3]
+VAST_model <- "6g" 
 
 SamplingStrata_dir <- paste0(c("/Users/zackoyafuso/",
                                "C:/Users/Zack Oyafuso/",
@@ -35,7 +35,7 @@ SamplingStrata_dir <- paste0(c("/Users/zackoyafuso/",
 
 which_CV_method = c("OneCV", "SppSpecificCV")[1]
 
-which_variance = c("Spatial_Optimization", "Spatiotemporal_Optimization")[1]
+which_variance = c("Spatial_Optimization", "Spatiotemporal_Optimization")[2]
 
 github_dir <- paste0(c("/Users/zackoyafuso/Documents", 
                        "C:/Users/Zack Oyafuso/Documents",
@@ -77,7 +77,7 @@ threshold <- matrix(0.1, nrow = ns, ncol = nboats)
 ##################################################
 par(mfrow = c(6,6), mar = c(2,2,0,0))
 
-for (istrata in 2) {
+for (istrata in 1) {
   
   temp_strata <- stratas[istrata]
   
@@ -88,7 +88,7 @@ for (istrata in 2) {
   
   ##Initial Upper CV constraints
   CV_constraints = rep(
-    x = ifelse(which_variance == "Spatial_Optimization", 0.2, 0.4), 
+    x = ifelse(which_variance == "Spatial_Optimization", 0.2, 0.3), 
     times = ns)
   
   #How much the CV should be reduced by
