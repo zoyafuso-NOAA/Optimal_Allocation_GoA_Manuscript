@@ -41,9 +41,8 @@ rockfish and rougheye rockfish, respectively) hereafter.
 
 The spatial domain of the survey optimization is the Gulf of Alaska 
 divided into a Xnm resolution grid. This is the same grid that used as an 
-extrapolation grid in the VAST package and can be accessed :
-
-Code to get this
+extrapolation grid in the FishStatsUtils package and can be accessed using 
+```FishStatsUtils::gulf_of_alaska_grid```
 
 Density of each species was predicted across the spatiotemporal domain using a 
 multispecies vector autoregressive spatiotemporal model using the VAST package. 
@@ -66,20 +65,20 @@ area, and depths of each grid in the spatial domain. The depth and E_km fields
 are used as strata variables. The output of the script is saved as 
 optimization_data.RData and contains the following variables and constants. 
 
-| Variable Name | Description                                                                                                                        | Class Type and Dimensions      |
-|---------------|------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
-| ns            | Number of species in optimization                                                                                                  | numeric vector, length 1       |
-| sci_names     | Scientific species names, used in plots                                                                                            | character vector, length ns    |
-| nboats        | Total number of sample sizes of interest, (nboats = 3)                                                                             | numeric vector, length 1       |
-| samples       | Range of sample sizes of interest, corresponding to 1 (n = 280), 2 (n = 550), and 3 (n = 820) boats                                | numeric vector, length nboats  |
-| NStrata       | Total number of strata scenarios, (NStrata = 6)                                                                                    | numeric vector, length 1       |
-| stratas       | Range of number of strata, (stratas = c(5, 10, 15, 20, 30, 60))                                                                    | numeric vector, length NStrata |
-| N             | Total number of grid cells in the spatial domain, (N = 23339 cells)                                                                | numeric vector, length 1       |
-| NTime         | Total number of years with data, (NTime = 11 years between 1996-2019)                                                              | numeric vector, length 1       |
-| Niters        | Total number of times a survey is simulated, (Niters = 1000)                                                                       | numeric vector, length 1       |
-| frame         | Annual mean densities for each species, longitude, and depth across grid cells                                                     | dataframe, 23339 r x 19 c      |
-| frame_raw     | Densities for each species across observed years, along with longitude and depth across cells                                      | dataframe, 23339X11 R x 20 c   |
-| true_mean     | True mean densities for each species and year. This is the "truth" that is used in the performance metrics when simulating surveys | dataframe, 11 r x 15 c         |
+| Variable Name | Description                                                                                                                        | Class Type and Dimensions                  |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|
+| ns            | Number of species in optimization                                                                                                  | numeric vector, length 1                   |
+| sci_names     | Scientific species names, used in plots                                                                                            | character vector, length ns                |
+| nboats        | Total number of sample sizes of interest, (nboats = 3)                                                                             | numeric vector, length 1                   |
+| samples       | Range of sample sizes of interest, corresponding to 1 (n = 280), 2 (n = 550), and 3 (n = 820) boats                                | numeric vector, length nboats              |
+| NStrata       | Total number of strata scenarios, (NStrata = 6)                                                                                    | numeric vector, length 1                   |
+| stratas       | Range of number of strata, (stratas = c(5, 10, 15, 20, 30, 60))                                                                    | numeric vector, length NStrata             |
+| N             | Total number of grid cells in the spatial domain, (N = 23339 cells)                                                                | numeric vector, length 1                   |
+| NTime         | Total number of years with data, (NTime = 11 years between 1996-2019)                                                              | numeric vector, length 1                   |
+| Niters        | Total number of times a survey is simulated, (Niters = 1000)                                                                       | numeric vector, length 1                   |
+| frame         | Annual mean densities for each species, longitude, and depth across grid cells                                                     | dataframe, N rows x 19 columns             |
+| frame_raw     | Densities for each species across observed years, along with longitude and depth across cells                                      | dataframe, N*NTime rows x 20 columns       |
+| true_mean     | True mean densities for each species and year. This is the "truth" that is used in the performance metrics when simulating surveys | dataframe, NTime rows x ns columns         |
 
 
 Running the script create a directory called model_6g which will contain all 
