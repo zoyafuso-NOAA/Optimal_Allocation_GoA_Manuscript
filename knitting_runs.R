@@ -9,7 +9,7 @@ rm(list = ls())
 ##################################################
 ####  Set up directories
 ##################################################
-which_machine <- c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[2]
+which_machine <- c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[1]
 VAST_model <- "6g" 
 
 github_dir <- paste0(c("/Users/zackoyafuso/Documents/", 
@@ -35,7 +35,7 @@ load(paste0(github_dir, "optimization_data.RData"))
 ####   Spatiotemporal_Optimization: optimizing using spatiotemporal variance
 ##################################################
 which_CV_method = c("OneCV", "SppSpecificCV")[1]
-which_variance = c("Spatial_Optimization", "Spatiotemporal_Optimization")[1]
+which_variance = c("Spatial_Optimization", "Spatiotemporal_Optimization")[2]
 
 result_dir <- paste0(github_dir, which_variance, "_", which_CV_method, "/")
 
