@@ -26,14 +26,14 @@ rm(list = ls())
 ## Set up directories
 #############################
 which_machine <- c("Zack_MAC" = 1, "Zack_PC" = 2)[1]
-VAST_model <- "6g"
 github_dir <- paste0(c("/Users/zackoyafuso/Documents/", 
                        "C:/Users/Zack Oyafuso/Documents/")[which_machine], 
-                     "GitHub/Optimal_Allocation_GoA/model_", VAST_model, "/")
+                     "GitHub/Optimal_Allocation_GoA_Manuscript/model_6g/")
 
 figure_dir <- paste0(c('/Users/zackoyafuso/', 
                        'C:/Users/Zack Oyafuso/')[which_machine],
-                     'Google Drive/MS_Optimizations/figure_plot/')
+                     'Google Drive/MS_Optimizations/',
+                     'Manuscript Drafts/figure_plot/')
 
 load(paste0(github_dir, "optimization_data.RData"))
 
@@ -41,12 +41,12 @@ load(paste0(github_dir, "optimization_data.RData"))
 ## Plot Settings
 ################
 plot_settings = data.frame(
-  type = c("Spatial", "Spatiotemporal"),
-  data_filename = c("spatial_only_", 
-                    "spatiotemporal_"),
+  path = c("Spatial_Optimization_OneCV", 
+           "Spatiotemporal_Optimization_OneCV",
+           "Spatiotemporal_Optimization_SppSpecificCV"),
   subtitle = c("Spatial Only\n(One-CV Constraint)", 
-               "Spatiotemporal\n(One-CV Constraint)")
-)
+               "Spatiotemporal\n(One-CV Constraint)",
+               "Spatiotemporal\n(Spp-Specific CV Constraints)"))
 
 ####################
 {
@@ -60,30 +60,45 @@ plot_settings = data.frame(
       mar = c(3, 0, 3, 0), 
       oma = c(1, 12, 0, 1))
   
-  for (irow in 1:2) {
-    load(paste0(github_dir, plot_settings$type[irow], 
-                "_Optimization/STRS_Sim_Res_",
-                plot_settings$type[irow], ".RData"))
-    load(paste0(github_dir,plot_settings$type[irow],"_Optimization/",
-                plot_settings$data_filename[irow], 
-                "optimization_results.RData"))
+  for (irow in 1:3) {
     
+    ## Load Data
+    load(paste0(github_dir, plot_settings$path[irow], 
+                "/STRS_Sim_Res_spatiotemporal.RData"))
+    load(paste0(github_dir, plot_settings$path[irow],
+                "/optimization_knitted_results.RData"))
+    
+    ## Subset out the 10-strata, 2 boat scenario
     sub_settings <- subset(settings, 
-                           nstrata == 10)
+                           strata == 5)
     sample_idx <- which.min(abs(sub_settings$n - 550))
     
-    #Subset out the 10-strata, 2 boat scenario
-    abs_diff <- STRS_true_cv_array[,, 2, 2] - sub_settings$cv[sample_idx]
-    rel_diff <- 100 * abs_diff / sub_settings$cv[sample_idx]
+    cv_constraint <- unlist(sub_settings[sample_idx, paste0("CV_", 1:ns)])
     
+    abs_diff <- sweep(x = STRS_true_cv_array[,, 2, 2], 
+                      MARGIN = 2, 
+                      STATS = cv_constraint,
+                      FUN = '-')
+    
+    rel_diff <- 100 * sweep(x = abs_diff, 
+                            MARGIN = 2, 
+                            STATS = cv_constraint,
+                            FUN = '/')
+    
+    ## Plot
+    border_color <- switch(irow,
+                           "1" = "black",
+                           "2" = "black",
+                           "3" = ifelse(cv_constraint <= 0.1, "blue", "black"))
     boxplot(rel_diff, 
             horizontal = TRUE, 
             add = F, 
             axes = F,
             pch = 16, 
             cex = 0.5, 
-            ylim = c(-110,160),
-            main = plot_settings$subtitle[irow])
+            ylim = c(-75,220),
+            main = plot_settings$subtitle[irow],
+            border = border_color)
     box()
     abline(v = 0, 
            col = "darkgrey", 
@@ -94,57 +109,14 @@ plot_settings = data.frame(
                         las = 1, 
                         font = 3, 
                         at = 1:ns)
-    
   }
+  
   mtext(side = 1, 
-        text = paste0("Percent Difference of the True CV ",
-                      "Relative to the Upper CV Constraint"), 
+        text = paste0("% Difference of the True CV ",
+                      "Relative to the CV Constraint"), 
         outer = T, 
         line = 0)
-  
-  #######################
-  ## Flexible Scheme
-  #######################
-  load(paste0(github_dir, "Spatiotemporal_Optimization_Scheme2/",
-              "spatiotemporal_Flexible_optimization_results.RData"))
-  load(paste0(github_dir, "Spatiotemporal_Optimization_Scheme2/",
-              "STRS_Sim_Res_Spatiotemporal_Flexible.RData"))
-  settings$id <- 1:nrow(settings)
-  
-  sub_settings <- subset(settings, 
-                         nstrata == 10)
-  idx <- which.min(abs(sub_settings$n - 550))
-  
-  expected_cv <- unlist(sub_settings[idx - 1, paste0("CV_", 1:ns)] )
-  expected_cv <- sapply(expected_cv, function(x) max(x, 0.1))
-  
-  #Subset out the 10-strata, 2 boat scenario
-  abs_diff <- sweep(x = STRS_true_cv_array[,, 2, 2], 
-                    MARGIN = 2, 
-                    STATS = expected_cv, 
-                    FUN = "-" )
-  rel_diff <- 100 * sweep(x = abs_diff, 
-                          MARGIN = 2, 
-                          STATS = expected_cv, 
-                          FUN = "/" )
-  
-  boxplot(rel_diff, 
-          horizontal = TRUE, 
-          add = F, 
-          axes = F,
-          pch = 16, 
-          cex = 0.5, 
-          ylim = c(-110,160),
-          main =  "Spatiotemporal\n(Spp-Specific CV Constraints)",
-          border = ifelse(expected_cv == 0.1, "blue", "black" ))
-  box()
-  abline(v = 0, 
-         col = "darkgrey", 
-         lty = "dashed")
-  axis(side = 1)
-  
   dev.off()
-  
 }
 
 ############################################
@@ -157,7 +129,7 @@ which_strata = c(2,4:6)
   png(filename = paste0(figure_dir, 
                         "Supplemental_Figures/SFig3_choke_spp.png"),
       width = 190, 
-      height = 200, 
+      height = 205, 
       units = "mm", 
       res = 500)
   
@@ -166,20 +138,38 @@ which_strata = c(2,4:6)
       oma = c(3.5, 12, 3.5, 1))
   
   for (istrata in which_strata) {
-    for (irow in 1:2){
-      load(paste0(github_dir, plot_settings$type[irow], 
-                  "_Optimization/STRS_Sim_Res_",
-                  plot_settings$type[irow], ".RData"))
-      load(paste0(github_dir, plot_settings$type[irow], "_Optimization/",
-                  "optimization_knitted_results.RData"))
-      print(str(STRS_true_cv_array))
+    for (irow in 1:3){
       
+      ## Load Data
+      load(paste0(github_dir, plot_settings$path[irow], 
+                  "/STRS_Sim_Res_spatiotemporal.RData"))
+      load(paste0(github_dir, plot_settings$path[irow],
+                  "/optimization_knitted_results.RData"))
+      
+      ## Subset data to 2 boat, istrata strata
       sub_settings <- subset(settings, 
-                            strata == stratas[istrata])
+                             strata == stratas[istrata])
       sample_idx <- which.min(abs(sub_settings$n - 550))
       
-      abs_diff = STRS_true_cv_array[,,2,istrata] - sub_settings$cv[sample_idx]
-      rel_diff = 100 * abs_diff / sub_settings$cv[sample_idx]
+      cv_constraint <- unlist(sub_settings[sample_idx, 
+                                           paste0("CV_", 1:ns)])
+      
+      abs_diff <- sweep(x = STRS_true_cv_array[,, 2, 2], 
+                        MARGIN = 2, 
+                        STATS = cv_constraint,
+                        FUN = '-')
+      
+      rel_diff <- 100 * sweep(x = abs_diff, 
+                              MARGIN = 2, 
+                              STATS = cv_constraint,
+                              FUN = '/')
+      
+      ## Plot
+      border_color <- switch(
+        irow,
+        "1" = "black",
+        "2" = "black",
+        "3" = ifelse(cv_constraint <= 0.1, "blue", "black"))
       
       boxplot(rel_diff, 
               horizontal = TRUE, 
@@ -187,10 +177,13 @@ which_strata = c(2,4:6)
               axes = F,
               pch = 16, 
               cex = 0.5, 
-              ylim = c(-110,160) )
+              ylim = c(-75,200),
+              border = border_color)
+      
       if (istrata == 2) mtext(side = 3, 
                               text = plot_settings$subtitle[irow], 
-                              line = 0.5)
+                              line = 0.5,
+                              cex = 0.8)
       box()
       abline(v = 0, 
              col = "darkgrey", 
@@ -201,60 +194,16 @@ which_strata = c(2,4:6)
                           las = 1, 
                           font = 3, 
                           at = 1:ns)
-      
+      if (irow == 2) mtext(side = 3, 
+                           line = -1.5,
+                           text = paste("    ", stratas[istrata], 
+                                        "Strata") )
     }
     mtext(side = 1, 
           text = paste0("Percent Difference of the True CV ",
-                        "Relative to the Upper CV Constraint"), 
+                        "Relative to the CV Constraint"), 
           outer = T, 
           line = 2.5)
-    
-    #######################
-    ## Flexible Scheme
-    #######################
-    load(paste0(github_dir, "Spatiotemporal_Optimization_Scheme2/",
-                "optimization_knitted_results.RData"))
-    load(paste0(github_dir, "Spatiotemporal_Optimization_Scheme2/",
-                "STRS_Sim_Res_spatiotemporal.RData"))
-    
-    sub_settings = subset(settings, 
-                          strata == stratas[istrata])
-    idx = which.min(abs(sub_settings$n - 550))
-    expected_cv = unlist(sub_settings[idx-1, paste0("CV_", 1:ns)])
-    expected_cv = sapply(X = expected_cv, 
-                         FUN = function(x) max(x, 0.1))
-    abs_diff = sweep(x = STRS_true_cv_array[,, istrata, 2], 
-                     MARGIN = 2, 
-                     STATS = expected_cv, 
-                     FUN = "-" )
-    rel_diff = 100 * sweep(x = abs_diff, 
-                           MARGIN = 2, 
-                           STATS = expected_cv, 
-                           FUN = "/" )
-    
-    boxplot(rel_diff, 
-            horizontal = TRUE, 
-            add = F, 
-            axes = F,
-            pch = 16, 
-            cex = 0.5, 
-            ylim = c(-110,160),
-            border = ifelse(expected_cv == 0.1, "blue", "black" ))
-    box()
-    abline(v = 0, 
-           col = "darkgrey", 
-           lty = "dashed")
-    if (istrata == 6) 
-      axis(side = 1) 
-    if (istrata == 2) 
-      mtext(side = 3, 
-            text = "Spatiotemporal\n(Spp-Specific CV Constraint)",
-            line = 0.5)
-    
-    legend("bottomright", 
-           legend = paste(stratas[istrata], "Strata"),
-           bty = "n", 
-           cex = 1.75)
   }
   dev.off()
 }
