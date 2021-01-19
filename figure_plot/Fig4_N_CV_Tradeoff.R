@@ -19,16 +19,16 @@ rm(list = ls())
 ##################################################
 ####   Set up directories
 ##################################################
-which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[2]
+which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[1]
 
-VAST_model <- "6g"
 github_dir <- paste0(c("/Users/zackoyafuso/Documents/", 
                        "C:/Users/Zack Oyafuso/Documents/")[which_machine], 
-                     "GitHub/Optimal_Allocation_GoA/model_", VAST_model, "/")
+                     "GitHub/Optimal_Allocation_GoA_Manuscript/model_6g/")
 
 figure_dir <- paste0(c("/Users/zackoyafuso/", 
                        "C:/Users/Zack Oyafuso/")[which_machine],
-                     "Google Drive/MS_Optimizations/figure_plot/")
+                     "Google Drive/MS_Optimizations/",
+                     "Manuscript Drafts/figure_plot/")
 
 ##################################################
 ####   Plot Settings
@@ -61,7 +61,7 @@ plot_settings <-
     ## Load Data
     ##########################
     load(paste0(github_dir, plot_settings$type[irow], 
-                "_Optimization/optimization_knitted_results.RData"))
+                "_Optimization_OneCV/optimization_knitted_results.RData"))
     
     #############################
     ## Main Plot
@@ -76,7 +76,7 @@ plot_settings <-
          pch = 16,
          ylim = c(0, 1100),
          ann = F, 
-         cex.axis = 0.85)
+         cex.axis = 0.8)
     
     lines(n ~ cv, 
           data = subsettings)
@@ -101,7 +101,7 @@ plot_settings <-
   
   #Plot Axes Names
   mtext(side = 1, 
-        text = "Upper CV Constraint", 
+        text = "CV Constraint", 
         outer = T, 
         line = 0.5)
   
@@ -111,7 +111,7 @@ plot_settings <-
         line = 3)
   
   dev.off()
-  }
+}
 
 
 #####################################################
@@ -119,8 +119,9 @@ plot_settings <-
 #####################################################
 plot_settings <- 
   data.frame(type = c("Spatial", "Spatiotemporal"),
-             xmin = c(0.09, 0.15),
+             xmin = c(0.09, 0.13),
              xmax = c(0.24, 0.30),
+             ymax = c(1000, 1000),
              xlabel = c(0.22, 0.2775))
 {
   png(paste0(figure_dir, "Supplemental_Figures/SFig4_N_CV_Tradeoff.png"),
@@ -139,7 +140,7 @@ plot_settings <-
     ## Load Data
     ##########################
     load(paste0(github_dir, plot_settings$type[irow], 
-                "_Optimization/optimization_knitted_results.RData"))
+                "_Optimization_OneCV/optimization_knitted_results.RData"))
     
     for (istrata in c(5, 10, 15, 20, 30, 60)) {
       
@@ -187,7 +188,7 @@ plot_settings <-
         lines(n ~ cv, 
               data = settings, 
               subset = strata == istrata)
-        }
+      }
       
       abline(h = samples, 
              col = "grey", 
@@ -201,9 +202,8 @@ plot_settings <-
       text(x = plot_settings$xlabel[irow],
            y = plot_settings$ymax[irow],
            labels = paste(istrata, "Strata"), 
-           font = 2, 
-           pos = 1, 
-           cex = 1.25)
+           font = 2) 
+      
       
       if (istrata == 5) mtext(side = 3, 
                               text = paste(plot_settings$type[irow], 
@@ -213,7 +213,7 @@ plot_settings <-
   }
   
   mtext(side = 1, 
-        text = "Upper CV Constraint", 
+        text = "CV Constraint", 
         outer = T, 
         line = 3)
   mtext(side = 2, 
@@ -221,4 +221,4 @@ plot_settings <-
         outer = T, 
         line = 4)
   dev.off()
-}
+  }
