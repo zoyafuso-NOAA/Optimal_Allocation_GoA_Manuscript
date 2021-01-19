@@ -18,7 +18,7 @@ rm(list = ls())
 ##################################################
 ####   Set up directories
 ##################################################
-which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2)[2]
+which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2)[1]
 
 github_dir <- paste0(c("/Users/zackoyafuso/Documents/", 
                        "C:/Users/Zack Oyafuso/Documents/")[which_machine], 
@@ -341,7 +341,7 @@ NStrata = length(stratas)
 {
   png(file = paste0(figure_dir, "Supplemental_Figures/SFig7_RRMSE_CV.png"),
       width = 190, 
-      height = 190, 
+      height = 230, 
       units = "mm", 
       res = 1000)
   
