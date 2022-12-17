@@ -39,7 +39,7 @@ github_dir <- paste0(c("/Users/zackoyafuso/Documents/",
 
 figure_dir <- paste0(c("/Users/zackoyafuso/Google Drive/", 
                        "C:/Users/Zack Oyafuso/Google Drive/")[which_machine],
-                     "MS_Optimizations/figure_plot/")
+                     "MS_Optimizations/Manuscript Drafts/figure_plot/")
 
 #######################################
 ## Load Shapefiles
@@ -91,7 +91,7 @@ sci_names <- c(levels(Data_Geostat$spp), "Bathymetry (meters)")
 #######################################
 bathy <- sp::SpatialPointsDataFrame(
     coords = Extrapolation_depths[, c("E_km", "N_km")], 
-    data = data.frame(val = Extrapolation_depths$depth))
+    data = data.frame(val = Extrapolation_depths$DEPTH_EFH))
 
 bathy_ras <- raster::raster(bathy, resolution = 5)
 bathy_ras <- raster::rasterize(x = bathy, 
@@ -114,11 +114,11 @@ mean_density_gc = apply(density_gct,
 #######################################
 {
     #Set up file
-    png(paste0(figure_dir, "Fig2_Mean_CV.png"),
-        width = 190, 
-        height = 190, 
-        units = "mm", 
-        res = 500)
+    jpeg(paste0(figure_dir, "Fig2_Mean_CV.jpeg"),
+         width = 170, 
+         height = 170, 
+         units = "mm", 
+         res = 500)
     
     #Panel Layout: 6 rows by 3 columns, first 5 rows are spatial distributions
     #for the 15 species and the last row (2nd column) is for the inset.
@@ -137,11 +137,10 @@ mean_density_gc = apply(density_gct,
              ann = F,
              xlim = bbox_[c("xmin", "xmax")],
              ylim = c(bbox_["ymin"], bbox_["ymax"]))
-        box()
         
         #Extract Data for a species
         if (ispp %in% 1:ns) temp <- data.frame(mean = mean_density_gc[,ispp])
-        if (ispp == 16) temp <- data.frame(mean = Extrapolation_depths$depth)
+        if (ispp == 16) temp <- data.frame(mean = Extrapolation_depths$DEPTH_EFH)
         
         #Discretize by decile: the first bin is for densities < 1, then the 
         #densities > 1 are broken up into 9 quantile groups. In total, there 
@@ -169,9 +168,18 @@ mean_density_gc = apply(density_gct,
         #Spatial Object: we create a raster by creating a spatial object from
         #the positions of the Extrapolation grid, then attributing the density
         #values across the grid. Then that object is rasterized.
-        goa <- sp::SpatialPointsDataFrame(
-            coords = Extrapolation_depths[, c("E_km", "N_km")],
-            data = data.frame(val = temp_int))
+        
+        if (ispp %in% 1:ns) {
+            goa <- sp::SpatialPointsDataFrame(
+                coords = fit$spatial_list$loc_g,
+                data = data.frame(val = temp_int))
+        }
+        
+        if (ispp == (ns+1)) {
+            goa <- sp::SpatialPointsDataFrame(
+                coords = Extrapolation_depths[, c("E_km", "N_km")],
+                data = data.frame(val = temp_int))
+        }
         
         goa_ras <- raster::raster(x = goa, 
                                   resolution = 5)
@@ -220,7 +228,8 @@ mean_density_gc = apply(density_gct,
              labels = gsub(sci_names[ispp], 
                            pattern = " ", 
                            replacement = "\n"), 
-             font = ifelse(ispp %in% 1:ns, 3, 1))
+             font = ifelse(ispp %in% 1:ns, 3, 1),
+             cex = 0.80)
         
         #Overlay scale bar
         segments(x0 = bbox_[1], 
@@ -297,7 +306,7 @@ mean_density_gc = apply(density_gct,
             legend = legend_vals[["top"]],
             rect.col = c("white", brewer.pal(n = 9, 
                                              name = color_density)), 
-            cex = 0.5, 
+            cex = 0.4, 
             align = "rb" )
         plotrix::color.legend(
             xl = bbox_[1] + xrange * 0.4,
@@ -307,9 +316,10 @@ mean_density_gc = apply(density_gct,
             legend = legend_vals[["bottom"]],
             rect.col = c("white", brewer.pal(n = 9, 
                                              name = color_density)), 
-            cex = 0.5, 
+            cex = 0.4, 
             align = "lt" )
         
+        box()
     }
     
     #Plot Inset
@@ -317,7 +327,7 @@ mean_density_gc = apply(density_gct,
     oce::mapPlot(coastlineCut(coastlineWorldFine, -135),
                  longitudelim = c(-180, -70), 
                  latitudelim = c(30, 60),
-                 proj = "+proj=aea +lat_0=40 +lon_0=-135", 
+                 proj = "+proj=laea +lat_0=40 +lon_0=-135 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs",
                  col = "tan",
                  border = "black", 
                  grid = c(15, 15))

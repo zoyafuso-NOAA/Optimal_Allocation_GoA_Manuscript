@@ -25,7 +25,7 @@ rm(list = ls())
 ############################
 ## Set up directories
 #############################
-which_machine <- c("Zack_MAC" = 1, "Zack_PC" = 2)[1]
+which_machine <- c("Zack_MAC" = 1, "Zack_PC" = 2)[2]
 github_dir <- paste0(c("/Users/zackoyafuso/Documents/", 
                        "C:/Users/Zack Oyafuso/Documents/")[which_machine], 
                      "GitHub/Optimal_Allocation_GoA_Manuscript/model_6g/")
@@ -50,11 +50,11 @@ plot_settings = data.frame(
 
 ####################
 {
-  png(filename = paste0(figure_dir, "Fig5_choke_spp.png"),
-      width = 190, 
+  jpeg(filename = paste0(figure_dir, "Fig5_choke_spp.jpeg"),
+      width = 170, 
       height = 100, 
       units = "mm", 
-      res = 500)
+      res = 1000)
   
   par(mfrow = c(1, 3), 
       mar = c(3, 0, 3, 0), 
@@ -96,8 +96,9 @@ plot_settings = data.frame(
             axes = F,
             pch = 16, 
             cex = 0.5, 
-            ylim = c(-75,220),
+            ylim = c(-75,180),
             main = plot_settings$subtitle[irow],
+            cex.main = 0.90,
             border = border_color)
     box()
     abline(v = 0, 

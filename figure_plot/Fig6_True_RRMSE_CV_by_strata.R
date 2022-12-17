@@ -18,7 +18,7 @@ rm(list = ls())
 ##################################################
 ####   Set up directories
 ##################################################
-which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2)[1]
+which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2)[2]
 
 github_dir <- paste0(c("/Users/zackoyafuso/Documents/", 
                        "C:/Users/Zack Oyafuso/Documents/")[which_machine], 
@@ -42,11 +42,11 @@ NStrata = length(stratas)
 ##  number of strata for the species-specific CV constraint approach. 
 ##################################################
 {
-  png(file = paste0(figure_dir, "Fig6_True_CV.png"),
-      width = 190, 
-      height = 150, 
-      units = "mm", 
-      res = 500)
+  jpeg(file = paste0(figure_dir, "Fig6_True_CV.jpeg"),
+       width = 170, 
+       height = 150, 
+       units = "mm", 
+       res = 1000)
   
   par(mar = c(0.25, 4, .25, 0), 
       oma = c(4, 1, 2, 0.5), 
@@ -121,7 +121,7 @@ NStrata = length(stratas)
   mtext(side = 2, 
         "True CV", 
         outer = T, 
-        line = -1)
+        line = -0.5)
   dev.off()
 }
 
@@ -132,11 +132,11 @@ NStrata = length(stratas)
 ## and number of strata for the species-specific CV constraint approach.
 #################################
 {
-  png(file = paste0(figure_dir, "Fig8_RRMSE_CV.png"),
-      width = 190, 
-      height = 120, 
-      units = "mm", 
-      res = 1000)
+  jpeg(file = paste0(figure_dir, "Fig8_RRMSE_CV.jpeg"),
+       width = 170, 
+       height = 120, 
+       units = "mm", 
+       res = 1000)
   
   layout(mat = matrix(c(1:4, 
                         8:11,
@@ -146,7 +146,7 @@ NStrata = length(stratas)
          widths = c(1, 1, 0.25, 1, 1))
   
   par(mar = c(0, 0, 0, 0), 
-      oma = c(4, 4, 3, 1))
+      oma = c(4.5, 4.5, 3, 1))
   
   for (itype in 1:2) {
     load(paste0(github_dir,
@@ -194,7 +194,8 @@ NStrata = length(stratas)
       if (ispp %in% c(1, 9)) 
         mtext(side = 3, 
               text = c("One-CV\nConstraint",
-                       "Spp-Specific CV\nConstraints")[itype])
+                       "Spp-Specific CV\nConstraints")[itype],
+              cex = 0.80)
       
       offset = 0
       for(istrata in 1:NStrata){
@@ -232,11 +233,11 @@ NStrata = length(stratas)
   mtext(side = 1, 
         text = "Number of Strata", 
         outer = T, 
-        line = 2.5)
+        line = 3)
   mtext(side = 2, 
         text = "RRMSE of CV", 
         outer = T, 
-        line = 2.5)
+        line = 3)
   dev.off()
 }
 

@@ -19,7 +19,7 @@ rm(list = ls())
 ##################################################
 ####   Set up directories
 ##################################################
-which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[1]
+which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2, "Zack_GI_PC" = 3)[2]
 
 github_dir <- paste0(c("/Users/zackoyafuso/Documents/", 
                        "C:/Users/Zack Oyafuso/Documents/")[which_machine], 
@@ -45,10 +45,10 @@ plot_settings <-
 ##################################################
 
 { 
-  png(filename = paste0(figure_dir, "Fig4_N_CV_Tradeoff.png"),
-      width = 90, 
-      height = 150, 
-      res = 500, 
+  jpeg(filename = paste0(figure_dir, "Fig4_N_CV_Tradeoff.jpeg"),
+      width = 85, 
+      height = 120, 
+      res = 1000, 
       units = "mm")
   
   par(mfrow = c(2, 1), 
@@ -76,7 +76,7 @@ plot_settings <-
          pch = 16,
          ylim = c(0, 1100),
          ann = F, 
-         cex.axis = 0.8)
+         cex.axis = 0.75)
     
     lines(n ~ cv, 
           data = subsettings)
@@ -90,20 +90,22 @@ plot_settings <-
     text(x = plot_settings$xlabel[irow], 
          y = samples, 
          labels = paste(1:3, "Boat"), 
-         pos = 1)
+         pos = 1,
+         cex = 0.8)
     
     #Plot subtitle
     legend("top", 
            legend = paste(plot_settings$type[irow], "Optimization"), 
-           bty = "n")
+           bty = "n",
+           cex = 0.8)
     
   }
   
   #Plot Axes Names
   mtext(side = 1, 
         text = "CV Constraint", 
-        outer = T, 
-        line = 0.5)
+        outer = T,
+        line = 0.3)
   
   mtext(side = 2, 
         text = "Total Optimized Sample Size", 

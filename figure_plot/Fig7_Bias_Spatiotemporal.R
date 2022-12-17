@@ -12,7 +12,7 @@ rm(list = ls())
 ##################################################
 ####   Set up directories
 ##################################################
-which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2)[1]
+which_machine = c("Zack_MAC" = 1, "Zack_PC" = 2)[2]
 
 github_dir <- paste0(c("/Users/zackoyafuso/Documents/", 
                        "C:/Users/Zack Oyafuso/Documents/")[which_machine], 
@@ -34,8 +34,8 @@ NStrata = length(stratas)
 ####   
 ##################################################
 {
-  png(file = paste0(figure_dir, "Fig7_Bias_Est.png"),
-      width = 190,
+  jpeg(file = paste0(figure_dir, "Fig7_Bias_Est.jpeg"),
+      width = 170,
       height = 190,
       units = "mm",
       res = 1000)
@@ -180,11 +180,11 @@ NStrata = length(stratas)
 #######################################
 
 {
-  png(file = paste0(figure_dir, paste0("Fig9_Bias_CV.png")),
-      width = 190, 
+  jpeg(file = paste0(figure_dir, paste0("Fig9_Bias_CV.jpeg")),
+      width = 170, 
       height = 150, 
       units = "mm", 
-      res = 500)
+      res = 1000)
   
   layout(mat = matrix(c(1:4, 
                         8:11,
@@ -194,7 +194,7 @@ NStrata = length(stratas)
          widths = c(1, 1, 0.25, 1, 1))
   
   par(mar = c(0.25, 0, 0.25, 0), 
-      oma = c(4, 4, 3, 1))
+      oma = c(4, 4.5, 3, 1))
   
   for (itype in 1:2) {
     
@@ -239,7 +239,7 @@ NStrata = length(stratas)
       #Base Plot
       plot(1, 
            type = "n", 
-           xlim = c(0, 70), 
+           xlim = c(0, 72), 
            ylim = c(-ylim_, ylim_), 
            axes = F, 
            ann = F)
@@ -257,7 +257,8 @@ NStrata = length(stratas)
       if (ispp %in% c(1,8)) 
         mtext(side = 3, 
               text = c("One-CV\nConstraint",
-                       "Spp-Specific CV\nConstraints")[itype])
+                       "Spp-Specific CV\nConstraints")[itype],
+              cex = 0.85)
       if(ispp %in% 13:15) 
         axis(side = 1,
              at = c(17, 55),
@@ -335,7 +336,7 @@ NStrata = length(stratas)
   mtext(side = 2, 
         text = "Percent Relative Bias", 
         outer = T, 
-        line = 2.5)
+        line = 3)
   dev.off()
 }
 

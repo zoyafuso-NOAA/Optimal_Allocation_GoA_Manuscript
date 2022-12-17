@@ -44,18 +44,18 @@ stratas <- c(5, 10, 15)
 yrange <- diff(range(Extrapolation_depths[, "N_km"]))
 
 {
-  png(file = paste0(figure_dir, "Fig3_sol_by_boat2_withsamples.png"),
-      width = 190,
-      height = 150,
+  jpeg(file = paste0(figure_dir, "Fig3_sol_by_boat2_withsamples.jpeg"),
+      width = 85,
+      height = 190,
       units = "mm",
       res = 1000)
   
   ####################################
   ## Plot Settings
   ####################################
-  par(mfrow = c(2, 2), 
-      mar = c(0, 0, 2, 0),
-      oma = c(0.25, 0.25, 1.5, 0.25) )
+  par(mfrow = c(3, 1), 
+      mar = c(0, 0, 0, 0),
+      oma = c(0, 0, 0, 0) )
   
   
   for (istrata in stratas) {
@@ -69,12 +69,14 @@ yrange <- diff(range(Extrapolation_depths[, "N_km"]))
          ann = F,
          asp = 1,
          xlim = range(Extrapolation_depths[, c("E_km")]),
-         ylim = c(min(Extrapolation_depths[, c("N_km")]) - 1.2 * yrange,
-                  max(Extrapolation_depths[, c("N_km")])))
+         ylim = c(min(Extrapolation_depths[, c("N_km")]) - 0 * yrange,
+                  max(Extrapolation_depths[, c("N_km")]) - 1. * yrange) )
+    box()
     
     mtext(side = 3, 
           paste(istrata, "Strata"), 
-          font = 2) 
+          font = 2,
+          line = -1.75) 
     
     offset <- 0
     for(isample in samples){
